@@ -1,0 +1,65 @@
+/*
+* Creating a function to create our CPT
+*/
+ 
+function custom_post_type() {
+ 
+// Set UI labels for Custom Post Type
+    $labels = array(
+        'name'                => _x( 'Sermons', 'Post Type General Name', 'twentytwenty' ),
+        'singular_name'       => _x( 'Sermon', 'Post Type Singular Name', 'twentytwenty' ),
+        'menu_name'           => __( 'Sermons', 'twentytwenty' ),
+        'parent_item_colon'   => __( 'Parent Sermon', 'twentytwenty' ),
+        'all_items'           => __( 'All Sermon', 'twentytwenty' ),
+        'view_item'           => __( 'View Sermon', 'twentytwenty' ),
+        'add_new_item'        => __( 'Add New Sermon', 'twentytwenty' ),
+        'add_new'             => __( 'Add New', 'twentytwenty' ),
+        'edit_item'           => __( 'Edit Sermon', 'twentytwenty' ),
+        'update_item'         => __( 'Update Sermon', 'twentytwenty' ),
+        'search_items'        => __( 'Search Sermon', 'twentytwenty' ),
+        'not_found'           => __( 'Not Found', 'twentytwenty' ),
+        'not_found_in_trash'  => __( 'Not found in Trash', 'twentytwenty' ),
+    );
+     
+// Set other options for Custom Post Type
+     
+    $args = array(
+        'label'               => __( 'sermons', 'twentytwenty' ),
+        'description'         => __( 'Sermon, Articles news and reviews', 'twentytwenty' ),
+        'labels'              => $labels,
+        // Features this CPT supports in Post Editor
+        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', 'custom-fields', ),
+        // You can associate this CPT with a taxonomy or custom taxonomy. 
+        'taxonomies'          => array( 'category', 'series', 'post_tag', 'topic', 'book' ),
+        /* A hierarchical CPT is like Pages and can have
+        * Parent and child items. A non-hierarchical CPT
+        * is like Posts.
+        */ 
+        'hierarchical'        => true,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'show_in_nav_menus'   => true,
+        'show_in_admin_bar'   => true,
+        'menu_position'       => 4,
+        'menu_icon'           => 'dashicons-video-alt2',
+        'can_export'          => true,
+        'has_archive'         => true,
+        'exclude_from_search' => false,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'show_in_rest' => true,
+ 
+    );
+     
+    // Registering your Custom Post Type
+    register_post_type( 'sermons', $args );
+ 
+}
+ 
+/* Hook into the 'init' action so that the function
+* Containing our post type registration is not 
+* unnecessarily executed. 
+*/
+ 
+add_action( 'init', 'custom_post_type', 0 );
